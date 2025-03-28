@@ -5,6 +5,11 @@ const { logError, pause, SECOND, logInfo, logSuccess } = require('./helper');
 /* ========================================================================= */
 exports.mint = {
 
+  0: {
+    name: `Все активные и бесплатные минты`,
+    ended: false
+  },
+
   1: {
     name: `Ronke on a Sailing Ship [Price: 0 RON]`,
     mint: `0x00005ea00ac477b1030ce78506496e8c2de24bf5`,
@@ -27,7 +32,8 @@ exports.mint = {
   mintFunctions: {
     name: `Выберите минт`,
     value: false,
-    1: openSeaPublicMint
+    1: openSeaPublicMint,
+    2: openSeaPublicMint
   }
 
 };
