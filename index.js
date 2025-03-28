@@ -186,11 +186,11 @@ async function Main() {
         continue;
       };
 
-      let currentMints = (choice === 0)
-        ? Object.keys(mint).map(el => el).filter(el => el !== 0 && !mint[el].ended)
+      let currentMints = (choice === `0`)
+        ? Object.keys(mint).map(el => el).filter(el => el !== `0` && !mint[el].ended && el !== `mintFunctions`)
         : [choice];
 
-      console.log("currentMints", currentMints);
+      // console.log("currentMints", currentMints);
       currentMints = shuffle(currentMints);
 
       //Ждем газ и выставляем параметры транзакции (gasPrice)
@@ -206,15 +206,16 @@ async function Main() {
       // console.log(BOT.tx_params["RONIN"]);
       let msg = ``;
 
-      for (let mint of currentMints) {
+      let standardMsg = `Кошелек [${BOT.wallets["RONIN"].address} | ${id}] [${parseInt(i) + 1} из ${length}]`;
 
+
+      for (let mintId of currentMints) {
+        
+        balance = await getBalance(BOT, "RONIN");
         balance = ethers.formatEther(balance);
         logInfo(BOT.wallets["RONIN"].address);
-
-        let standardMsg = `Кошелек [${BOT.wallets["RONIN"].address} | ${id}] [${parseInt(i) + 1} из ${length}]`;
-        standardMsg += ` | ${mint[choice].name} `;
-
         logInfo(standardMsg);
+        standardMsg += ` | ${mint[mintId].name} `;
 
         logInfo(`Баланс кошелька: ${balance}`);
 
@@ -226,7 +227,7 @@ async function Main() {
         };
 
         // Делаем минт
-        let tx = await mint.mintFunctions[choice](BOT, mint[choice]);
+        let tx = await mint.mintFunctions[mintId](BOT, mint[mintId]);
 
         if (tx === true) {
           logSuccess(standardMsg + `| Минт уже был совершен.`);

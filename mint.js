@@ -44,7 +44,7 @@ async function openSeaPublicMint(BOT, choice) {
   const contractNFT = new ethers.Contract(choice.NFT, ABI, BOT.wallets["RONIN"]);
 
   const mintABI = `["function mintPublic(address,address,address,uint256)"]`;
-  const mintContract = new ethers.Contract(choice.mint, mintABIABI, BOT.wallets["RONIN"]);
+  const mintContract = new ethers.Contract(choice.mint, mintABI, BOT.wallets["RONIN"]);
 
   const balanceOf = await contractNFT.balanceOf(BOT.wallets["RONIN"].address);
   // console.log("balanceOf", balanceOf);
