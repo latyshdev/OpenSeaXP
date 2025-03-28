@@ -210,7 +210,7 @@ async function Main() {
 
 
       for (let mintId of currentMints) {
-        
+        standardMsg = `Кошелек [${BOT.wallets["RONIN"].address} | ${id}] [${parseInt(i) + 1} из ${length}]`;
         balance = await getBalance(BOT, "RONIN");
         balance = ethers.formatEther(balance);
         logInfo(BOT.wallets["RONIN"].address);
